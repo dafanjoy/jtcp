@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.jtcp</groupId>
+  <artifactId>jtcp</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  
+  <properties>
+  		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<jtcp-common.version>0.1.0</jtcp-common.version>
+		<jtcp-transport.version>0.1.0</jtcp-transport.version>
+		<jtcp-core.version>0.1.0</jtcp-core.version>
+		<netty.version>4.1.79.Final</netty.version>
+  </properties>
+  <dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>io.netty</groupId>
+				<artifactId>netty-all</artifactId>
+				<version>${netty.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.jtcp</groupId>
+				<artifactId>jtcp-common</artifactId>
+				<version>${jtcp-common.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.jtcp</groupId>
+				<artifactId>jtcp-transport</artifactId>
+				<version>${jtcp-transport.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.jtcp</groupId>
+				<artifactId>jtcp-core</artifactId>
+				<version>${jtcp-core.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+  
+  <modules>
+    <module>jtcp-common</module>
+    <module>jtcp-transport</module>
+    <module>jtcp-core</module>
+    
+    <module>jtcp-all</module>
+    <module>jtcp-example</module>
+  </modules>
+</project>
