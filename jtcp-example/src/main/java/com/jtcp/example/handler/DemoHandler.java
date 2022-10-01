@@ -17,7 +17,7 @@ public class DemoHandler{
 	
 	@JtcpRoute(RouteEnum.OnConnect)
     public void onConnect(JtcpContext context ) {
-    	System.err.println("连接成功");
+    	System.out.println("连接成功");
     }
 	
 	
