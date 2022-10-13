@@ -6,25 +6,21 @@ import com.jtcp.common.utils.StringUtils;
 import com.jtcp.core.bean.JtcpApplicationContext;
 import com.jtcp.core.handler.DispatcherHandler;
 import com.jtcp.core.reflect.RouterScanner;
-import com.jtcp.transport.client.JtcpClient;
+import com.jtcp.transport.server.JtcpServer;
 
-/**
- * @author  DaFan
- * @version 创建时间：2019年1月25日 下午6:06:22
- */
-public final class JtcpBootstrap {
+public class JtcpServerBootstrap {
 	private Class<?> mainClass;
 
 	/**
 	 * 构造函数
 	 *
 	 * @param providerConfig
-	 * 客户端发布者配置
+	 * 服务发布者配置
 	 */
-	public JtcpBootstrap() {
+	public JtcpServerBootstrap() {
 	}
 
-	public JtcpBootstrap(JtcpConfig config) {
+	public JtcpServerBootstrap(JtcpConfig config) {
 	}
 
 	public JtcpConfig config() {
@@ -42,7 +38,7 @@ public final class JtcpBootstrap {
 		    if(mainClass!=null) {
 		    	JtcpApplicationContext.getInstance().init(mainClass.getPackage().getName());
 		    }
-		    new JtcpClient(new DispatcherHandler()).connect();//启动服务
+		    new JtcpServer(new DispatcherHandler()).start();//启动服务
 			
 		}catch (Exception e) {
 			// TODO: handle exception
