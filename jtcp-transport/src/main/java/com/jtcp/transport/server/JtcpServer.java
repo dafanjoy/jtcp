@@ -23,9 +23,9 @@ import io.netty.handler.timeout.IdleStateHandler;
  */
 public class JtcpServer {
 
-	private static EventLoopGroup bossGroup;
+	private EventLoopGroup bossGroup;
 	
-	private static EventLoopGroup workerGroup;
+	private EventLoopGroup workerGroup;
 	
 	private ServerBootstrap serverBootstrap;
 

@@ -17,7 +17,7 @@ public class JtcpApplicationContext {
 
 	private static volatile JtcpApplicationContext sproutApplicationContext;
 
-	private static IJtcpBeanFactory sproutBeanFactory;
+	private IJtcpBeanFactory sproutBeanFactory;
 
 	
 	public static JtcpApplicationContext getInstance() {
