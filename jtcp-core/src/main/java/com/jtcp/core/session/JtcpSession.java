@@ -8,9 +8,7 @@ public class JtcpSession {
 	private String id;
 	private String sessionNo;
 	private Channel channel = null;
-	// 客户端上次的连接时间，该值改变的情况:
-	// 1. terminal --> server 心跳包
-	// 2. terminal --> server 数据包
+	// 客户端上次的连接时间
 	private long lastCommunicateTimeStamp = 0l;
 
 	public JtcpSession() {
@@ -48,11 +46,11 @@ public class JtcpSession {
 		return buildSession(channel, null);
 	}
 
-	public static JtcpSession buildSession(Channel channel, String phone) {
+	public static JtcpSession buildSession(Channel channel, String sessionId) {
 		JtcpSession session = new JtcpSession();
 		session.setChannel(channel);
 		session.setId(buildId(channel));
-		session.setSessionNo(phone);
+		session.setSessionNo(sessionId);
 		session.setLastCommunicateTimeStamp(System.currentTimeMillis());
 		return session;
 	}

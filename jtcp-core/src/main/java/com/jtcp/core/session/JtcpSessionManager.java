@@ -12,10 +12,8 @@ import java.util.stream.Collectors;
 public class JtcpSessionManager {
 
 	private static volatile JtcpSessionManager instance = null;
-	// netty生成的sessionID和Session的对应关系
+	// 客户端链接sessionID和Session的对应关系
 	private Map<String, JtcpSession> sessionIdMap;
-	// 终端手机号和netty生成的sessionID的对应关系
-	private Map<String, String> TerminalMap;
 
 	public static JtcpSessionManager getInstance() {
 		if (instance == null) {
@@ -30,7 +28,6 @@ public class JtcpSessionManager {
 
 	public JtcpSessionManager() {
 		this.sessionIdMap = new ConcurrentHashMap<>();
-		this.TerminalMap = new ConcurrentHashMap<>();
 	}
 
 	public boolean containsKey(String sessionId) {
@@ -41,21 +38,12 @@ public class JtcpSessionManager {
 		return sessionIdMap.containsValue(session);
 	}
 
-	public JtcpSession findBySessionId(String id) {
-		return sessionIdMap.get(id);
+	public JtcpSession findBySessionId(String sessionId) {
+		return sessionIdMap.get(sessionId);
 	}
 
-	public JtcpSession findByTerminalPhone(String phone) {
-		String sessionId = this.TerminalMap.get(phone);
-		if (sessionId == null)
-			return null;
-		return this.findBySessionId(sessionId);
-	}
 
 	public synchronized JtcpSession put(String key, JtcpSession value) {
-		if (value.getSessionNo() != null && !"".equals(value.getSessionNo().trim())) {
-			this.TerminalMap.put(value.getSessionNo(), value.getId());
-		}
 		return sessionIdMap.put(key, value);
 	}
 
@@ -63,11 +51,6 @@ public class JtcpSessionManager {
 		if (sessionId == null)
 			return null;
 		JtcpSession session = sessionIdMap.remove(sessionId);
-		if (session == null)
-			return null;
-		//session为空，且通过终端号查找的sessionID与当前sessionID一致才能表明该sessionID是最新的，否则只能说明该设备终端又建立了新的连接，而旧连接没有正常关闭
-		if (session.getSessionNo() != null&&TerminalMap.get(session.getSessionNo()).equals(sessionId))
-			this.TerminalMap.remove(session.getSessionNo());
 		return session;
 	}
 
