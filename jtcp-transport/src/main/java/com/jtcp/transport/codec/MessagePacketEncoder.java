@@ -17,25 +17,8 @@ import io.netty.util.ReferenceCountUtil;
  */
 public class MessagePacketEncoder extends MessageToByteEncoder<byte[]> {
 
-	private int magicByteBegin = 0x7e;
-	private int magicByteEnd = 0x7e;
-
-	public MessagePacketEncoder(int magicByteBegin, int magicByteEnd) {
-		this.magicByteBegin = magicByteBegin;
-		this.magicByteEnd = magicByteEnd;
-	}
-
 	@Override
 	protected void encode(ChannelHandlerContext ctx, byte[] bytes, ByteBuf out) throws Exception {
 		out.writeBytes(bytes);
-		
-//		ChannelFuture future =  ctx.write(out);
-//		future.addListener(new ChannelFutureListener() {
-//	         public void operationComplete(ChannelFuture future) {
-//	        	 if(!future.isSuccess()) {
-//	        		System.err.print("发送失败");
-//	        	 }
-//	         }
-//	     });
 	}
 }

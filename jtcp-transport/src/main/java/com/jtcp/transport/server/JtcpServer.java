@@ -65,8 +65,7 @@ public class JtcpServer {
 					ch.pipeline().addLast("idleStateHandler", new IdleStateHandler(config.getIdleMinutes(), 0, 0, TimeUnit.MINUTES))
 							.addLast(new MessagePacketDecoder(config.getMagicByteBegin(),
 									config.getMagicByteBegin()))
-							.addLast(new MessagePacketEncoder(config.getMagicByteBegin(),
-									config.getMagicByteBegin()))
+							.addLast(new MessagePacketEncoder())
 							.addLast("handler", dispatcherHandler);
 				}
 			});

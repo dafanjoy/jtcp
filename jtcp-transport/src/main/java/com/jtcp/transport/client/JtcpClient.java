@@ -48,8 +48,7 @@ public class JtcpClient {
                         new IdleStateHandler(0, config.getIdleMinutes() + 1, 0, TimeUnit.MINUTES))
                 .addLast(new MessagePacketDecoder(config.getMagicByteBegin(),
 						config.getMagicByteBegin()))
-				.addLast(new MessagePacketEncoder(config.getMagicByteBegin(),
-						config.getMagicByteBegin()))
+				.addLast(new MessagePacketEncoder())
                 .addLast("clientManageHandler", dispatcherHandler);
             }
         });

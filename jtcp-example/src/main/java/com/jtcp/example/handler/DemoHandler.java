@@ -6,13 +6,26 @@ import com.jtcp.core.annotation.JtcpComponet;
 import com.jtcp.core.annotation.JtcpRoute;
 import com.jtcp.core.context.JtcpContext;
 
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+
 @JtcpComponet
 public class DemoHandler{
 	
 	@JtcpRoute(RouteEnum.OnRecevie)
     public void res(JtcpContext jtcpContext) {
 		System.err.println(BytesUtils.toHexString(jtcpContext.getRecvBytes()));
-		jtcpContext.context.writeAndFlush(jtcpContext.getRecvBytes());
+		
+		ChannelFuture future = jtcpContext.context.writeAndFlush(jtcpContext.getRecvBytes());
+		future.addListener(new ChannelFutureListener() {
+	         public void operationComplete(ChannelFuture future) {
+	        	 if(!future.isSuccess()) {
+	        		System.err.print("发送失败");
+	        	 }else {
+					System.err.println("发送成功");
+				}
+	         }
+	     });
     }
 	
 	@JtcpRoute(RouteEnum.OnConnect)
